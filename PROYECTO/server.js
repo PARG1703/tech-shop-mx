@@ -38,7 +38,10 @@ const db = mysql.createPool({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD, 
     database: process.env.DB_DATABASE,
-    port: process.env.DB_PORT || 3306,
+    port: process.env.DB_PORT,
+    ssl: {
+        ca: fs.readFileSync(path.join(__dirname, 'isrgrootx1.pem'))
+    },
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
@@ -46,8 +49,12 @@ const db = mysql.createPool({
 
 // Verificamos la conexión al iniciar
 db.getConnection((err, connection) => {
-    if (err) throw new Error('❌ No se pudo conectar a la base de datos. Revisa XAMPP y el archivo .env.');
-    console.log('✅ Conectado exitosamente a la base de datos tech_shop_db');
+    if (err) {
+        // Mostramos el error real para un mejor diagnóstico en producción
+        console.error('❌ No se pudo conectar a la base de datos. Error detallado:', err);
+        throw err; // Detenemos la aplicación si no hay BD
+    }
+    console.log('✅ Conectado exitosamente a la base de datos en la nube.');
     connection.release();
 });
 
@@ -609,7 +616,7 @@ app.post('/api/productos/:id/calificar', (req, res) => {
 });
 
 // Iniciar el servidor
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`🚀 Servidor listo en http://localhost:${PORT}`);
 });
