@@ -8,6 +8,10 @@ const nodemailer = require('nodemailer');
 const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
+const dns = require('dns');
+
+// Forzar la resolución de DNS a IPv4, una solución común para problemas de red en la nube (ESOCKET)
+dns.setDefaultResultOrder('ipv4first');
 
 const app = express();
 const saltRounds = 10;
