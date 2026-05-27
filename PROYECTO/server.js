@@ -74,7 +74,9 @@ const sessionStore = new MySQLStore({
 
 // Configuración de Gmail para enviar correos
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true, // Usar SSL
     auth: {
         user: 'pabloaldo1703@gmail.com', // Cambia por tu correo
         pass: process.env.GMAIL_PASS  // ¡Ahora lee la contraseña segura desde .env!
