@@ -38,7 +38,7 @@ const db = mysql.createPool({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD, 
     database: process.env.DB_DATABASE,
-    port: process.env.DB_PORT,
+    port: process.env.DB_PORT || 3000,
     ssl: {
         ca: fs.readFileSync(path.join(__dirname, 'isrgrootx1.pem'))
     },
@@ -616,7 +616,7 @@ app.post('/api/productos/:id/calificar', (req, res) => {
 });
 
 // Iniciar el servidor
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`🚀 Servidor listo en http://localhost:${PORT}`);
 });

@@ -6,7 +6,7 @@ function toggleDropdown() {
     if (dropdown) dropdown.classList.toggle("show");
 }
 
-window.actualizarRastreo = function(id, estado) {
+function actualizarRastreo(id, estado) {
     const orderNumber = document.querySelector('#dynamic-tracking .order-number');
     if (orderNumber) orderNumber.textContent = `#TS-${id}`;
     
@@ -33,8 +33,7 @@ window.actualizarRastreo = function(id, estado) {
             steps[i].textContent = '✓';
         }
     }
-};
-
+}
 
 // =========================================
 // CÓDIGO PRINCIPAL (se ejecuta al cargar la página)
@@ -149,8 +148,18 @@ if (loginForm) {
                 if (reparaciones.length > 0) {
                     // Mostrar lista arriba del formulario
                     misSolicitudesContainer.style.display = 'block';
-                    const lista = document.getElementById('lista-solicitudes');
+                    const lista = document.getElementById('lista-solicitudes');                    
+                    
+                    // Limpiamos y añadimos un solo event listener para toda la lista (más eficiente)
                     lista.innerHTML = '';
+                    lista.addEventListener('click', (e) => {
+                        const target = e.target.closest('.btn-rastreo');
+                        if (target) {
+                            const id = target.dataset.id;
+                            const estado = target.dataset.estado;
+                            actualizarRastreo(id, estado);
+                        }
+                    });
                     
                     reparaciones.forEach(rep => {
                         const div = document.createElement('div');
@@ -171,7 +180,7 @@ if (loginForm) {
                                     <small style="color: #6b7280;">Detalle: ${shortDesc}</small><br>
                                     <small style="color: #6b7280;">Estado: <span style="color: var(--primary-color); font-weight: bold;">${rep.estado}</span></small>
                                 </div>
-                                <button class="btn btn-small" onclick="actualizarRastreo(${rep.id}, '${rep.estado}')">Ver Rastreo</button>
+                                <button class="btn btn-small btn-rastreo" data-id="${rep.id}" data-estado="${rep.estado}">Ver Rastreo</button>
                             </div>
                         `;
                         lista.appendChild(div);
