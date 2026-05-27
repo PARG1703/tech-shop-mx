@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Carrito - Tech Shop MX</title>
+    <link rel="stylesheet" href="CSS/estilos.css">
+    <style>
+        .cart-page { max-width: 900px; margin: 40px auto; padding: 20px; }
+        .cart-container { background: white; border-radius: 15px; padding: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .cart-header { display: flex; justify-content: space-between; border-bottom: 2px solid var(--border-color); padding-bottom: 15px; margin-bottom: 20px; }
+        .cart-header h1 { color: var(--primary-color); font-size: 1.8rem; }
+        .empty-cart { text-align: center; padding: 40px 20px; color: #6b7280; }
+        .empty-cart-icon { font-size: 4rem; margin-bottom: 15px; }
+        .cart-summary { margin-top: 30px; padding-top: 20px; border-top: 2px solid var(--border-color); text-align: right; }
+        .cart-total { font-size: 1.5rem; font-weight: bold; color: var(--text-color); margin-bottom: 20px; }
+        .btn-checkout { background: var(--success-color); padding: 15px 40px; font-size: 1.1rem; border-radius: 8px; }
+        .btn-checkout:hover { background: #059669; }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-home">⬅ Volver al Inicio</a>
+
+    <div class="cart-page">
+        <div class="cart-container">
+            <div class="cart-header">
+                <h1>🛒 Mi Carrito de Compras</h1>
+                <span style="color: #6b7280; font-weight: 600;">0 Artículos</span>
+            </div>
+
+            <!-- Contenedor dinámico del carrito -->
+            <div id="cart-items">
+                <div class="empty-cart">
+                    <div class="empty-cart-icon">📦</div>
+                    <h2>Tu carrito está vacío</h2>
+                    <p>¡Ve a nuestro catálogo y encuentra la mejor tecnología!</p>
+                    <br>
+                    <a href="catalogo.html" class="btn btn-primary">Ir al Catálogo</a>
+                </div>
+            </div>
+
+            <!-- Resumen de pago (Oculto cuando está vacío) -->
+            <div class="cart-summary" style="display: none;" id="cart-summary">
+                <div class="cart-total">Total a pagar: $0.00</div>
+                <button class="btn btn-primary btn-checkout" id="btn-proceder-pago">Continuar Compra 🚚</button>
+            </div>
+        </div>
+
+        <!-- VISTA DE CONFIRMACIÓN DE ENVÍO (Oculta por defecto) -->
+        <div id="order-confirmation" class="empty-cart" style="display: none; padding: 60px 20px; background: #f0fdf4; border: 1px solid #bbf7d0; margin-top: 30px; border-radius: 15px;">
+            <div class="empty-cart-icon" style="font-size: 5rem; color: var(--success-color);">🎉</div>
+            <h2 style="color: var(--success-color);" id="thank-you-message">¡Muchas gracias por tu compra!</h2>
+            <p style="color: #3f6212;">Hemos recibido tu pago y estamos preparando tu envío. Recibirás un correo con los detalles y el número de seguimiento.</p>
+            <br>
+            <a href="catalogo.html" class="btn btn-primary">Seguir Comprando</a>
+        </div>
+    </div>
+
+    <!-- MODAL DE DIRECCIÓN DE ENVÍO -->
+    <div id="shipping-modal" class="payment-modal-overlay" style="display: none;">
+        <div class="payment-modal-content">
+            <button id="close-shipping-modal-btn" class="close-modal-btn">&times;</button>
+            <h3>¿A dónde enviamos tu pedido?</h3>
+            <p style="text-align: center; color: #6b7280; margin-bottom: 20px;">Confirma o actualiza tu dirección de envío.</p>
+            <form id="shipping-form">
+                <div class="form-row">
+                    <div class="form-col" style="flex: 3;">
+                        <label>Calle</label>
+                        <input type="text" id="shipping-calle" placeholder="Av. Siempre Viva" required>
+                    </div>
+                    <div class="form-col" style="flex: 1;">
+                        <label>Número</label>
+                        <input type="text" id="shipping-numero" placeholder="742" required>
+                    </div>
+                </div>
+                <div class="form-col">
+                    <label>Colonia</label>
+                    <input type="text" id="shipping-colonia" placeholder="Springfield" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-col">
+                        <label>Código Postal</label>
+                        <input type="text" id="shipping-cp" placeholder="90210" required>
+                    </div>
+                    <div class="form-col">
+                        <label>Ciudad</label>
+                        <input type="text" id="shipping-ciudad" placeholder="CDMX" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-checkout btn-full">Continuar al Pago</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL DE PAGO (Oculto por defecto) -->
+    <div id="payment-modal" class="payment-modal-overlay" style="display: none;">
+        <div class="payment-modal-content">
+            <button id="close-modal-btn" class="close-modal-btn">&times;</button>
+            <h3>Ingresa tu método de pago</h3>
+            <div class="card-icons">
+                <span>💳</span><span>VISA</span><span>MasterCard</span>
+            </div>
+            <form id="payment-form">
+                <div class="form-col">
+                    <label>Nombre del titular</label>
+                    <input type="text" placeholder="Como aparece en la tarjeta" required>
+                </div>
+                <div class="form-col">
+                    <label>Número de tarjeta</label>
+                    <input type="text" placeholder="**** **** **** ****" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-col">
+                        <label>Vencimiento</label>
+                        <input type="text" placeholder="MM/AA" required>
+                    </div>
+                    <div class="form-col">
+                        <label>CVC</label>
+                        <input type="text" placeholder="123" required>
+                    </div>
+                </div>
+                <button type="submit" id="pay-now-btn" class="btn btn-primary btn-checkout btn-full">Pagar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="JS/script.js"></script>
+    <script src="JS/carrito.js"></script>
+</body>
+</html>

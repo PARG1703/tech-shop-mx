@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Cuenta - Tech Shop MX</title>
+    <link rel="stylesheet" href="CSS/estilos.css">
+</head>
+<body class="login-page">
+
+    <a href="index.html" class="back-home">← Volver al inicio</a>
+
+    <div class="login-container">
+        <div class="login-box">
+            <div class="profile-header">
+                <div class="profile-avatar">👤</div>
+                <h1 id="display-username">Cargando...</h1>
+                <p class="login-welcome">Información de tu perfil</p>
+            </div>
+
+            <div class="profile-details">
+                <div class="info-item">
+                    <strong>Nombre Completo:</strong>
+                    <span id="info-nombre">---</span>
+                </div>
+                <div class="info-item">
+                    <strong>Correo/Contacto:</strong>
+                    <span id="info-contacto">---</span>
+                </div>
+                <div class="info-item">
+                    <strong>País:</strong>
+                    <span id="info-pais">---</span>
+                </div>
+                <div class="info-item">
+                    <strong>Ciudad:</strong>
+                    <span id="info-ciudad">---</span>
+                </div>
+            </div>
+
+            <div class="login-footer">
+                <button onclick="location.href='configuracion.html'" class="btn btn-nav" style="color: black; border-color: #ccc;">Editar Perfil</button>
+                <a href="/logout" style="color: #ef4444; display: block; margin-top: 15px; font-weight: bold;">Cerrar Sesión</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="JS/perfil.js"></script>
+</body>
+</html>

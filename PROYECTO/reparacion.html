@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitar Reparación - Tech Shop MX</title>
+    <link rel="stylesheet" href="CSS/estilos.css">
+    <style>
+        .repair-page {
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .repair-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .repair-header h1 { color: var(--primary-color); }
+        .form-section {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+        }
+        .form-section h3 {
+            margin-bottom: 15px;
+            color: var(--text-color);
+            border-bottom: 2px solid var(--primary-color);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+        .form-row { display: flex; gap: 15px; margin-bottom: 15px; }
+        .form-col { flex: 1; display: flex; flex-direction: column; }
+        .form-col label { font-weight: 600; margin-bottom: 5px; font-size: 0.9rem; }
+        .form-col input, .form-col select, .form-col textarea {
+            padding: 10px; border: 1px solid #d1d5db; border-radius: 8px; font-family: inherit;
+        }
+        .photo-upload {
+            border: 2px dashed #a78bfa; padding: 30px; text-align: center;
+            border-radius: 10px; background: #f5f3ff; cursor: pointer; transition: 0.3s;
+        }
+        .photo-upload:hover { background: #ede9fe; }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-home">⬅ Volver al Inicio</a>
+
+    <div class="repair-page">
+        <div class="repair-header">
+            <h1>🔧 Solicitud de Reparación</h1>
+            <p>Ingresa los detalles de tu equipo para obtener una cotización precisa.</p>
+        </div>
+
+        <!-- En el backend usaremos Multer para procesar este form-data -->
+        <form id="advanced-repair-form" action="/api/solicitar-reparacion-avanzada" method="POST" enctype="multipart/form-data">
+            
+            <div class="form-section">
+                <h3>1. Datos del Dispositivo</h3>
+                <div class="form-row">
+                    <div class="form-col">
+                        <label>Tipo de Dispositivo *</label>
+                        <select name="tipo_dispositivo" required>
+                            <option value="">Selecciona...</option>
+                            <option value="Celular">Celular / Smartphone</option>
+                            <option value="Tablet">Tablet</option>
+                            <option value="Laptop">Laptop / PC</option>
+                        </select>
+                    </div>
+                    <div class="form-col">
+                        <label>Marca y Modelo Exacto *</label>
+                        <input type="text" name="modelo" placeholder="Ej. Samsung Galaxy S21 Ultra" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>2. Descripción del Problema</h3>
+                <div class="form-col" style="margin-bottom: 15px;">
+                    <label>Describe detalladamente la falla *</label>
+                    <textarea name="descripcion" rows="4" placeholder="Ej. La pantalla está rota, no enciende..." required></textarea>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>3. Evidencia Visual (Opcional)</h3>
+                <p style="font-size: 0.85rem; color: #6b7280; margin-bottom: 10px;">Sube fotos del daño para una mejor evaluación.</p>
+                <input type="file" name="fotos" accept="image/*" multiple>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full" style="padding: 15px;">Enviar Solicitud</button>
+        </form>
+    </div>
+</body>
+</html>

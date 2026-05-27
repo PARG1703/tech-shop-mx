@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Shop MX - Registro</title>
+    <link rel="stylesheet" href="CSS/estilos.css">
+</head>
+<body class="login-page">
+
+    <a href="index.html" class="back-home">← Volver al inicio</a>
+
+    <div class="login-container">
+        <div class="login-box">
+            <h1>Tech Shop MX</h1>
+            <p class="login-welcome">Crea tu cuenta para recibir beneficios</p>
+
+            <form action="/procesar_registro" method="POST" class="login-form">
+    
+    <div class="input-group">
+        <label>Contacto</label>
+        <input type="text" name="contacto" placeholder="Teléfono o correo electrónico" required>
+    </div>
+
+    <div class="input-group">
+        <label>Nombre Completo</label>
+        <input type="text" name="nombre_completo" placeholder="Tu nombre real" required>
+    </div>
+
+    <div class="input-group">
+        <label>Nombre de Usuario</label>
+        <input type="text" name="username" placeholder="Nombre de usuario" required>
+    </div>
+
+
+    <div class="input-group">
+    <label>País</label>
+    <select name="pais" class="form-control" required>
+        <option value="" disabled selected>Selecciona tu país</option>
+        <option value="México">México</option>
+        <option value="Argentina">Argentina</option>
+        <option value="Colombia">Colombia</option>
+        <option value="España">España</option>
+        <option value="Estados Unidos">Estados Unidos</option>
+    </select>
+</div> <div class="input-group">
+    <label>Ciudad</label>
+    <input type="text" name="ciudad" placeholder="Ciudad" required>
+</div> <div class="input-group password-container">
+    <label>Contraseña</label>
+    <div class="input-with-icon">
+        <input type="password" name="password" id="password" placeholder="Mínimo 8 caracteres" required>
+        <span id="togglePassword" class="eye-icon">👁️</span>
+    </div>
+    <small id="password-strength-text" class="strength-msg"></small>
+</div>
+
+    <div class="input-group">
+        <label>Confirmar Contraseña</label>
+        <input type="password" name="confirm_password" placeholder="Repite tu contraseña" required>
+    </div>
+
+    <div class="checkbox-group">
+        <input type="checkbox" id="terms" required>
+        <label for="terms">Acepto los <a href="#" class="forgot-link">términos y condiciones</a></label>
+    </div>
+
+    <button type="submit" class="btn btn-login">Registrarse</button>
+</form>
+
+            <div class="login-footer">
+                <p>¿Ya tienes una cuenta? <a href="iniciosesion.html">Inicia sesión</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="JS/script.js"></script>
+</body>
+</html>

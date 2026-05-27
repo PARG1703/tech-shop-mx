@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Shop MX - Iniciar Sesión</title>
+    <link rel="stylesheet" href="CSS/estilos.css">
+</head>
+<body class="login-page">
+
+    <a href="index.html" class="back-home">← Volver al inicio</a>
+
+    <div class="login-container">
+        <div class="login-box">
+            <h1>Tech Shop MX</h1>
+            <p class="login-welcome">Ingresa tus datos para acceder</p>
+
+            <form action="/login" method="POST" class="login-form">
+    <div class="input-group">
+        <label for="identificador">Usuario o Correo</label>
+        <input type="text" name="identificador" id="identificador" placeholder="Ej. pablo_aldo o correo@ejemplo.com" required>
+    </div>
+
+    <div class="input-group password-container">
+        <label for="password">Contraseña</label>
+        <div class="input-with-icon">
+            <input type="password" name="password" id="password_login" placeholder="••••••••" required>
+            <span id="togglePasswordLogin" class="eye-icon">👁️</span>
+        </div>
+    </div>
+
+    <div class="form-options">
+        <label class="remember-me">
+            <input type="checkbox"> Recordarme
+        </label>
+        <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
+    </div>
+
+    <button type="submit" class="btn btn-login">Entrar al Sistema</button>
+</form>
+
+            <div class="login-footer">
+                <p>¿No tienes una cuenta? <a href="registro.html">Regístrate aquí</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="JS/script.js"></script>
+</body>
+</html>

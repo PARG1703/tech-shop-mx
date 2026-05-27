@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Shop MX</title>
+    <link rel="stylesheet" href="CSS/estilos.css">
+</head>
+<body>
+    <header class="hero">
+        <nav class="top-nav">
+            <div class="nav-buttons" id="nav-auth-section">
+                <a href="iniciosesion.html" class="btn btn-nav">Iniciar Sesión</a>
+                <a href="registro.html" class="btn btn-nav">Registrarse</a>
+            </div>
+
+            <!-- Menú de usuario logueado (Oculto por defecto) -->
+            <div class="user-dropdown" id="user-menu" style="display: none;" onclick="toggleDropdown()">
+                <div class="user-icon-container">
+                    <span>👤</span>
+                    <span id="user-display-name">Usuario</span>
+                    <span>▼</span>
+                </div>
+                <div id="dropdown-content" class="dropdown-content">
+                    <a href="cuenta.html">Mi Perfil</a>
+                    <a href="favoritos.html">Mis Favoritos</a>
+                    <a href="compras.html">Mis Compras</a>
+                    <a href="carrito.html">Mi Carrito</a>
+                    <a href="/logout" class="logout-link">Cerrar Sesión</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="hero-content">
+            <h1 class="hero-title">Tech Shop MX</h1>
+            <p class="hero-subtitle">Tu tecnología en manos expertas</p>
+            <p class="hero-description">Reparación profesional y venta de dispositivos reacondicionados con garantía. Promovemos la economía circular.</p>
+            <div class="hero-buttons">
+                <a href="reparacion.html" class="btn btn-primary">Solicitar Reparación</a>
+                <a href="catalogo.html" class="btn btn-secondary">Ver Catálogo</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="catalog">
+            <h2 class="section-title">Catálogo de Recomendados</h2>
+            <div class="products-grid" id="recommended-products-grid">
+                <!-- Los productos recomendados se cargarán aquí dinámicamente -->
+                <p style="color: white; text-align: center;">Cargando recomendaciones...</p>
+            </div>
+        </section>
+
+        <section class="repair-section">
+            <h2 class="section-title">Módulo de Solicitud de Reparación</h2>
+
+            <!-- Contenedor de Mis Solicitudes -->
+            <div id="mis-solicitudes-container" style="max-width: 600px; margin: 0 auto 20px auto; display: none;">
+                <h3 style="color: white; margin-bottom: 15px;">Mis Solicitudes Activas</h3>
+                <div id="lista-solicitudes" style="display: flex; flex-direction: column; gap: 10px;"></div>
+            </div>
+
+            <div class="form-container">
+                <div style="text-align: center; padding: 20px;">
+                    <h3>🔧 ¿Tu dispositivo necesita ayuda?</h3>
+                    <p style="margin-bottom: 20px;">Hemos mejorado nuestro sistema de solicitudes. Ahora puedes enviarnos detalles más precisos y fotos del daño para darte una mejor atención.</p>
+                    <a href="reparacion.html" class="btn btn-primary" style="padding: 15px 30px; font-size: 1.1rem;">Ir al Formulario de Reparación</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="tracking-section">
+            <h2 class="section-title">Rastreo de Servicio</h2>
+            <div class="tracking-card" id="dynamic-tracking">
+                <div class="order-info">
+                    <span class="order-label">Orden:</span>
+                    <span class="order-number">Aún no tienes órdenes</span>
+                </div>
+                
+                <div class="tracking-steps">
+                    <a href="reparacion.html" style="text-decoration: none; color: inherit; cursor: pointer;" class="tracking-step">
+                        <div class="step-indicator">1</div>
+                        <span class="step-label">Diagnóstico</span>
+                    </a>
+                    <div class="tracking-step">
+                        <div class="step-indicator">2</div>
+                        <span class="step-label">Recibido</span>
+                    </div>
+                    <div class="tracking-step">
+                        <div class="step-indicator">3</div>
+                        <span class="step-label">Reparando</span>
+                    </div>
+                    <div class="tracking-step">
+                        <div class="step-indicator">4</div>
+                        <span class="step-label">Listo</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 Tech Shop MX - Todos los derechos reservados</p>
+    </footer>
+    <script src="JS/script.js"></script>
+</body>
+</html>

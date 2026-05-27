@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Favoritos - Tech Shop MX</title>
+    <link rel="stylesheet" href="CSS/estilos.css">
+    <style>
+        .favorites-page { max-width: 1200px; margin: 40px auto; padding: 20px; }
+        .favorites-header { 
+            display: flex; justify-content: space-between; align-items: center; 
+            margin-bottom: 30px; border-bottom: 2px solid var(--border-color); padding-bottom: 15px; 
+            background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .favorites-header h1 { color: var(--primary-color); font-size: 2rem; display: flex; align-items: center; gap: 10px; }
+        .empty-favorites { text-align: center; padding: 60px 20px; background: white; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-top: 20px; }
+        .empty-favorites-icon { font-size: 5rem; color: #d1d5db; margin-bottom: 20px; animation: heartbeat 2s infinite; }
+        .empty-favorites h2 { color: var(--text-color); margin-bottom: 10px; }
+        .empty-favorites p { color: #6b7280; margin-bottom: 25px; }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            10% { transform: scale(1.1); }
+            20% { transform: scale(1); }
+            30% { transform: scale(1.1); }
+            40% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-home">⬅ Volver al Inicio</a>
+
+    <div class="favorites-page">
+        <div class="favorites-header">
+            <h1>❤️ Mis Dispositivos Favoritos</h1>
+            <span style="color: #6b7280; font-weight: 600;" id="fav-count">0 Guardados</span>
+        </div>
+
+        <!-- Contenedor dinámico de favoritos -->
+        <div id="favorites-container">
+            <div class="empty-favorites">
+                <div class="empty-favorites-icon">🤍</div>
+                <h2>Aún no tienes favoritos</h2>
+                <p>Explora nuestro catálogo y guarda los dispositivos que más te gusten para tenerlos siempre a la mano.</p>
+                <a href="catalogo.html" class="btn btn-primary" style="padding: 12px 30px; font-size: 1.1rem;">Ir al Catálogo</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('/api/favoritos')
+                .then(res => {
+                    if (!res.ok) throw new Error('No logueado');
+                    return res.json();
+                })
+                .then(productos => {
+                    if (productos.length === 0) return; // Muestra el mensaje de vacío
+                    
+                    const container = document.getElementById('favorites-container');
+                    const count = document.getElementById('fav-count');
+                    
+                    count.textContent = `${productos.length} Guardados`;
+                    container.innerHTML = '<div class="products-grid" id="fav-grid"></div>';
+                    const grid = document.getElementById('fav-grid');
+                    
+                    productos.forEach(prod => {
+                        const card = document.createElement('article');
+                        card.className = 'product-card producto-card';
+                        card.innerHTML = `
+                            <div class="heart-icon-card" style="text-shadow: none;" onclick="quitarFavorito(${prod.id})" title="Quitar de favoritos">❤️</div>
+                            <div class="product-image">
+                                <img src="${prod.imagen}" alt="${prod.nombre}" loading="lazy" onerror="this.src='Img/placeholder.jpg'; this.onerror=null;">
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">${prod.nombre}</h3>
+                                <p class="product-description">${prod.descripcion.substring(0, 60)}...</p>
+                                <div class="product-footer">
+                                    <span class="product-price">$${prod.precio.toLocaleString('es-MX')}</span>
+                                    <button class="btn btn-small" onclick="location.href='catalogo.html'">Ver en Catálogo</button>
+                                </div>
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                    });
+                })
+                .catch(() => window.location.href = 'iniciosesion.html');
+        });
+
+        function quitarFavorito(id) {
+            fetch('/api/favoritos/toggle', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ producto_id: id })
+            }).then(() => location.reload());
+        }
+    </script>
+</body>
+</html>
