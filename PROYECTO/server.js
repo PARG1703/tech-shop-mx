@@ -119,7 +119,7 @@ app.post('/procesar_registro', async (req, res) => {
 
             transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {
-                    console.log("Error al enviar email:", error);
+                    console.error("Error al enviar email de bienvenida:", error);
                 } else {
                     console.log("Email enviado con éxito a: " + contacto);
                 }
@@ -247,7 +247,7 @@ app.post('/api/solicitar-reparacion-avanzada', upload.array('fotos', 5), (req, r
             };
 
             transporter.sendMail(mailOptions, (error, info) => {
-                if (error) { console.log("Error al enviar email a la empresa:", error); } 
+                if (error) { console.error("Error al enviar email de reparación a la empresa:", error); } 
                 else { console.log("Notificación de reparación enviada a la empresa."); }
             });
             
@@ -433,7 +433,7 @@ app.post('/api/carrito/checkout', async (req, res) => {
             subject: `🛒 Confirmación de Compra #${ordenId} - Tech Shop MX`,
             text: `¡Hola ${usuario.nombre_completo}!\n\nHemos recibido tu pago exitosamente.\n\nResumen de tu pedido:\n${listaProductosEmail}\nTotal pagado: $${total.toLocaleString('es-MX')}\n\nPronto nos pondremos en contacto contigo para el envío.\n\n¡Gracias por elegir Tech Shop MX!`
         };
-        transporter.sendMail(mailOptionsCliente).catch(err => console.log("Error al enviar email de compra al cliente:", err));
+        transporter.sendMail(mailOptionsCliente).catch(err => console.error("Error al enviar email de compra al cliente:", err));
 
         const mailOptionsEmpresa = {
             from: 'Sistema Tech Shop MX <pabloaldo1703@gmail.com>',
@@ -441,7 +441,7 @@ app.post('/api/carrito/checkout', async (req, res) => {
             subject: `📦 Nueva Venta #${ordenId} - Usuario: ${usuario.username}`,
             text: `¡Se ha registrado una nueva venta en el sistema!\n\nCliente: ${usuario.nombre_completo} (ID: ${usuario.id}, Contacto: ${usuario.contacto})\n\nDirección de Envío:\n${direccionEnvio}\n\nProductos Comprados:\n${listaProductosEmail}\nTotal de la Venta: $${total.toLocaleString('es-MX')}\n\nPor favor, prepara el pedido para su envío.`
         };
-        transporter.sendMail(mailOptionsEmpresa).catch(err => console.log("Error al enviar email de venta a la empresa:", err));
+        transporter.sendMail(mailOptionsEmpresa).catch(err => console.error("Error al enviar email de venta a la empresa:", err));
 
         res.json({ success: true, nombreUsuario: usuario.nombre_completo.split(' ')[0] });
 
